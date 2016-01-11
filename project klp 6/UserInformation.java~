@@ -1,0 +1,32 @@
+import java.util.ArrayList;
+public class UserInformation {
+
+    private String userId;
+    private String Group;
+    ArrayList<String[]> group = new ArrayList<String[]>();// untuk koordinat langkhan 
+    
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+    
+     public void setGroup(String Group) {
+        String [] file = new String[2];
+        file[0] = Group;
+       // data[1] = ;
+        group.add(file);
+    }
+    
+    public String getID(){
+    	return userId;
+    }
+    
+    public String getGroup(){
+        String value = "";
+        int x=0;
+        for(; x<group.size(); x++){
+            value = value + (group.get(x))[0]+" ";
+        }
+    	return  value;
+    }
+    
+    }

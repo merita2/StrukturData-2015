@@ -1,0 +1,81 @@
+/**
+ *  kode ini berisi untuk penyimpanan data yang diinput client
+ *  sehingga apabila diinput client server menyimpan data pada ArrayList 
+ * @author (Mardi, Merita) 
+ * @version (data for server storage)
+ */
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+public class DATA {
+    private String Group;
+    private String Id;
+    ArrayList<Object[]> group = new ArrayList<Object[]>(); 
+    
+    public void setUserId(String Id) {
+        this.Id = Id;
+    }
+           
+    public String getIdentity(){
+        return Id;
+    }
+    
+     public void setGroup(String Group) {
+        Object[] file = new Object[2];
+        file[0] = Group;
+        file[1] = Calendar.getInstance().getTime();
+        group.add(file);
+    }
+ 
+    public String getGroup(){
+        String value = "";
+        int x=0;
+        for(; x<group.size(); x++){
+            value = value + (group.get(x))[0]+" ";
+        }
+        return  value;
+    }
+    
+    public String getJAM (String first, String last){
+        try{
+            String Group = "";
+            int langkahan = 0;
+            
+            String[] firstime = first.split(":");  String[] lastime = last.split(":");
+            Calendar give;
+            Date depan, belakang, ending;
+            give = Calendar.getInstance();
+            give.set(Calendar.HOUR_OF_DAY, Integer.parseInt(firstime[0]));
+            give.set(Calendar.MINUTE, Integer.parseInt(firstime[1]));
+            give.set(Calendar.SECOND, Integer.parseInt(firstime[2]));
+            depan = give.getTime();
+            
+            give = Calendar.getInstance();
+            give.set(Calendar.HOUR_OF_DAY, Integer.parseInt(lastime[0]));
+            give.set(Calendar.MINUTE, Integer.parseInt(lastime[1]));
+            give.set(Calendar.SECOND, Integer.parseInt(lastime[2]));
+            belakang = give.getTime();
+            
+            int n=0;
+            for(;n<group.size();n++){
+                ending = (Date)((group.get(n))[1]);
+                if(ending.stl(depan)&&ending.sbl(belakang)){
+                    Group = Group + "("+(String)((group.get(n))[0])+")";
+                    langkahan++;
+                }
+                else if(ending.stl(belakang))
+                    break;
+            }
+            
+       
+        if(langkahan==0 && Group.length()==0)
+            return "EMPTY";
+        
+            return "JUMLAH_LANGKAH"+langkahan+ "KOORDINAT = "+Group;
+      }
+         catch(Exception e) {
+                return null;
+      }
+   }
+}
